@@ -86,6 +86,7 @@ export interface PixabayVideoFile {
   width: number;
   height: number;
   size: number;
+  thumbnail: string;
 }
 
 export interface PixabayVideoFiles {

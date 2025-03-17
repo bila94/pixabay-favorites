@@ -61,7 +61,7 @@ export const searchContent = async (req: Request, res: Response): Promise<void> 
           type: type as 'photo' | 'video',
           thumbnail: type === 'photo' 
             ? (item as any).previewURL 
-            : (item as any).videos?.medium?.url,
+            : (item as any).videos?.medium?.thumbnail,
           fullSize: type === 'photo' 
             ? (item as any).webformatURL 
             : (item as any).videos?.medium?.url,
