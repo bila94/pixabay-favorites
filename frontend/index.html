@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixabay Favorites</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pixabay Favorites</h1>
+        
+        <div id="auth-container">
+            <div class="tabs">
+                <button class="tab active" id="login-tab">Login</button>
+                <button class="tab" id="register-tab">Register</button>
+            </div>
+            
+            <div id="login-form" class="auth-form">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="text" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button id="login-btn">Login</button>
+                <p id="login-error" class="error-message"></p>
+            </div>
+            
+            <div id="register-form" class="auth-form" style="display: none;">
+                <h2>Register</h2>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="text" id="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" placeholder="Enter your password">
+                    <small>At least 8 characters, with lowercase, uppercase, number, and special character.</small>
+                </div>
+                <button id="register-btn">Register</button>
+                <p id="register-error" class="error-message"></p>
+            </div>
+        </div>
+        
+        <div id="app-container" style="display: none;">
+            <div class="user-controls">
+                <button id="logout-btn">Logout</button>
+            </div>
+            
+            <div class="search-container">
+                <h2>Search Photos/Videos</h2>
+                <div class="form-group">
+                    <input type="text" id="search-input" placeholder="Enter keywords to search">
+                    <select id="content-type">
+                        <option value="photo">Photos</option>
+                        <option value="video">Videos</option>
+                    </select>
+                    <button id="search-btn">Search</button>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" id="results-tab">Search Results</button>
+                <button class="tab" id="favorites-tab">My Favorites</button>
+            </div>
+            
+            <div id="results-container" class="content-grid"></div>
+            <div id="favorites-container" class="content-grid" style="display: none;"></div>
+            
+            <div id="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="page-info">Page 1 of 1</span>
+                <button id="next-page" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
