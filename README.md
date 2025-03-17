@@ -190,30 +190,9 @@ pixabay-favorites/
 └── tsconfig.json             # TypeScript configuration
 ```
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a pull request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a pull request
-
 ## 📮 Contact
 
-Your Name - your.email@example.com
+Tommaso Bilancia - tommaso.bila@gmail.com
 
 Project Link: [https://github.com/yourusername/pixabay-favorites](https://github.com/yourusername/pixabay-favorites)
 
-## 🙏 Acknowledgements
-
-- [Pixabay](https://pixabay.com/) for providing the free API
-- [Express](https://expressjs.com/)
-- [Sequelize](https://sequelize.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [JWT](https://jwt.io/)
