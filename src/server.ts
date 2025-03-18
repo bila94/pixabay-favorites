@@ -25,18 +25,24 @@ app.use('/api/auth', authRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/favorites', favoriteRoutes);
 
-// Test database connection
+// Test database connection, sync models, and start server only if successful
 sequelize.authenticate()
-  .then(() => console.log('Database connection established successfully'))
-  .catch(err => console.error('Unable to connect to the database:', err));
-
-// Sync database models
-sequelize.sync({ alter: true })
-  .then(() => console.log('Database models synced'))
-  .catch(err => console.error('Error syncing database models:', err));
-
-// Start server
-const PORT: number = parseInt(process.env.PORT || '5000');
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  .then(() => {
+    console.log('Database connection established successfully');
+    
+    // Only sync models after successful connection
+    return sequelize.sync({ alter: true });
+  })
+  .then(() => {
+    console.log('Database models synced');
+    
+    // Only start the server after database is ready
+    const PORT: number = parseInt(process.env.PORT || '5000');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch(err => {
+    console.error('Fatal database error:', err);
+    process.exit(1); // Exit with error code
+  });
 
 export default app;
