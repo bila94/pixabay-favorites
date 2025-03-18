@@ -179,7 +179,8 @@ pixabay-favorites/
 │   │   ├── favoritesController.ts
 │   │   └── searchController.ts
 │   ├── middleware/           # Middleware functions
-│   │   └── auth.ts           # Authentication middleware
+│   │   ├── auth.ts           # Authentication middleware
+│   │   └── validate.ts       # Joi validation middleware
 │   ├── models/               # Database models
 │   │   ├── Favorite.ts
 │   │   ├── User.ts
