@@ -77,6 +77,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set active tab
         activeTab = 'results';
         
+        //refresh favorited IDs and search results when switching tabs
+        fetchFavoritedIds().then(() => {
+            if (currentQuery) {
+                fetchSearchResults();
+            }
+        });
+        
         // Show pagination for search results
         updatePaginationDisplay();
         
