@@ -15,10 +15,6 @@ services:
     depends_on:
       - postgres
     restart: always
-    volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/dist  # Don't sync the dist folder
 
   postgres:
     image: postgres:13
