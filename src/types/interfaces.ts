@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { Model, Optional } from 'sequelize';
+import Joi from 'joi';
 
 // User Interfaces
 export interface UserAttributes {
@@ -156,4 +157,8 @@ export interface FavoritesResponse {
 
 export interface FavoritedIdsResponse {
   favoritedIds: string[];
+}
+
+export interface ValidatedRequest extends Request {
+  value: any;
 }

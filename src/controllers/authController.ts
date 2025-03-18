@@ -1,42 +1,14 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models';
-import { RegisterPayload, LoginPayload, JwtPayload } from '../types/interfaces';
-
-// Validation helpers
-const validateEmail = (email: string): boolean => {
-  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return re.test(email);
-};
-
-const validatePassword = (password: string): boolean => {
-  // At least 8 characters, one lowercase, one uppercase, one number, and one special character
-  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-  return re.test(password);
-};
+import { JwtPayload } from '../types/interfaces';
 
 // Register a new user
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password }: RegisterPayload = req.body;
+    const { email, password } = req.body;
 
-    // Validate input
-    if (!email || !password) {
-      res.status(400).json({ message: 'Email and password are required' });
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      res.status(400).json({ message: 'Invalid email format' });
-      return;
-    }
-
-    if (!validatePassword(password)) {
-      res.status(400).json({ 
-        message: 'Password must be at least 8 characters and include lowercase, uppercase, number, and special character' 
-      });
-      return;
-    }
+    // No validation needed here - Joi already handled it!
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { email } });
@@ -72,13 +44,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 // Login user
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password }: LoginPayload = req.body;
+    const { email, password } = req.body;
 
-    // Validate input
-    if (!email || !password) {
-      res.status(400).json({ message: 'Email and password are required' });
-      return;
-    }
+    // No validation needed here - Joi already handled it!
 
     // Find user
     const user = await User.findOne({ where: { email } });

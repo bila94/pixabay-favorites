@@ -2,7 +2,6 @@ import { Response } from 'express';
 import { Favorite } from '../models';
 import { 
   RequestWithUser, 
-  FavoriteAttributes, 
   FavoritesResponse,
   FavoritedIdsResponse 
 } from '../types/interfaces';
@@ -10,7 +9,7 @@ import {
 // Add to favorites
 export const addFavorite = async (req: RequestWithUser, res: Response): Promise<void> => {
   try {
-    const { contentId, contentType, contentData } = req.body as Partial<FavoriteAttributes>;
+    const { contentId, contentType, contentData } = req.body;
     
     if (!req.user) {
       res.status(401).json({ message: 'User not authenticated' });
@@ -19,10 +18,7 @@ export const addFavorite = async (req: RequestWithUser, res: Response): Promise<
     
     const userId = req.user.id;
 
-    if (!contentId || !contentType || !contentData) {
-      res.status(400).json({ message: 'Missing required fields' });
-      return;
-    }
+    // No validation needed - Joi already handled it!
 
     // Check if already favorited
     const existingFavorite = await Favorite.findOne({ 
@@ -93,8 +89,9 @@ export const getFavorites = async (req: RequestWithUser, res: Response): Promise
     }
     
     const userId = req.user.id;
-    const page = parseInt(req.query.page as string) || 1;
-    const per_page = parseInt(req.query.per_page as string) || 20;
+    // These are already numbers thanks to Joi
+    const page = req.query.page as unknown as number;
+    const per_page = req.query.per_page as unknown as number;
     
     // Calculate offset for pagination
     const offset = (page - 1) * per_page;

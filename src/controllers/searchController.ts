@@ -9,28 +9,13 @@ import {
 
 export const searchContent = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { 
-      query, 
-      type = 'photo', 
-      page = '1', 
-      per_page = '20' 
-    } = req.query as { 
-      query?: string; 
-      type?: string; 
-      page?: string; 
-      per_page?: string; 
+    // Validated query params - note these are already the correct types!
+    const { query, type, page, per_page } = req.query as unknown as { 
+      query: string;
+      type: 'photo' | 'video';
+      page: number;
+      per_page: number;
     };
-    
-    if (!query) {
-      res.status(400).json({ message: 'Search query is required' });
-      return;
-    }
-
-    // Validate content type
-    if (type !== 'photo' && type !== 'video') {
-      res.status(400).json({ message: 'Type must be either photo or video' });
-      return;
-    }
 
     // Determine API endpoint based on content type
     const endpoint = type === 'photo' ? 'https://pixabay.com/api/' : 'https://pixabay.com/api/videos/';
@@ -46,19 +31,17 @@ export const searchContent = async (req: Request, res: Response): Promise<void> 
       }
     });
 
-    const pageNum = parseInt(page);
-    const perPage = parseInt(per_page);
     const data = response.data as PixabayPhotoResponse | PixabayVideoResponse;
 
     // Format and send response
     const searchResponse: SearchResponse = {
       total: data.totalHits || 0,
-      totalPages: Math.ceil((data.totalHits || 0) / perPage),
-      currentPage: pageNum,
+      totalPages: Math.ceil((data.totalHits || 0) / per_page),
+      currentPage: page,
       results: data.hits.map(item => {
         const contentItem: ContentItem = {
           id: item.id,
-          type: type as 'photo' | 'video',
+          type: type,
           thumbnail: type === 'photo' 
             ? (item as any).previewURL 
             : (item as any).videos?.medium?.thumbnail,
