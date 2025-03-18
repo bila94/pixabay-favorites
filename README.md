@@ -17,6 +17,7 @@ A full-stack application that allows users to search and save their favorite ima
 - **PostgreSQL** database
 - **Sequelize ORM** for database interactions
 - **JWT** for authentication
+- **Joi** for request validation and type conversion
 - **Docker** and **Docker Compose** for containerization
 
 ### Frontend
@@ -145,9 +146,20 @@ npm start
   - Headers: `x-auth-token: jwt_token`
   - Response: Success message
 
+## 🛡️ Validation Strategy
+
+This project uses **Joi** for robust request validation:
+
+- **Centralized Schemas**: All validation rules are defined in schema files for consistency
+- **Automatic Type Conversion**: Query parameters are automatically converted to appropriate types
+- **Descriptive Error Messages**: User-friendly validation errors are returned to the client
+- **Middleware Approach**: Validation happens before request handlers, keeping controllers clean
+
+Validation schemas can be found in the `src/schemas` directory, with separate files for auth, search, and favorites endpoints.
+
 ## 🧪 Testing
 
-Coming soon...
+To be implemented...
 
 ## 🛠️ Project Structure
 
@@ -176,6 +188,10 @@ pixabay-favorites/
 │   │   ├── auth.ts
 │   │   ├── favorites.ts
 │   │   └── search.ts
+│   ├── schemas/              # Joi validation schemas
+│   │   ├── auth.schema.ts
+│   │   ├── favorites.schema.ts
+│   │   └── search.schema.ts
 │   ├── types/                # TypeScript type definitions
 │   │   └── interfaces.ts
 │   └── server.ts             # Main server file
