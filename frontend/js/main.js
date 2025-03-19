@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // State variables
     let token = localStorage.getItem('token');
+    let programmaticTabSwitch = false;
     
     // Search state
     let searchCurrentPage = 1;
@@ -78,11 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTab = 'results';
         
         //refresh favorited IDs and search results when switching tabs
-        fetchFavoritedIds().then(() => {
-            if (currentQuery) {
-                fetchSearchResults();
-            }
-        });
+        if (!programmaticTabSwitch) {
+            fetchFavoritedIds().then(() => {
+                if (currentQuery) {
+                    fetchSearchResults();
+                }
+            });
+        }
         
         // Show pagination for search results
         updatePaginationDisplay();
@@ -230,9 +233,10 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchFavoritedIds().then(() => {
             fetchSearchResults();
         });
-        
-        // Switch to results tab
+
+        programmaticTabSwitch = true;
         resultsTab.click();
+        programmaticTabSwitch = false;
     });
 
     // Pagination
