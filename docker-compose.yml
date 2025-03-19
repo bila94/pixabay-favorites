@@ -10,8 +10,8 @@ services:
       - POSTGRES_DB=pixabay_favorites
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - JWT_SECRET=ba286d7af1cf39f06c06302429c79a9e9e28ba5d41e429b9d429dbd1852191d7
-      - PIXABAY_API_KEY=39688808-ea81d6685b8e61ec339adf86f
+      - JWT_SECRET=${JWT_SECRET}
+      - PIXABAY_API_KEY=${PIXABAY_API_KEY}
     depends_on:
       - postgres
     restart: always
